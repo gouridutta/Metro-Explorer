@@ -1,8 +1,9 @@
-package com.coursegnome.metroexplorer
+package com.coursegnome.metroexplorer.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
+import com.coursegnome.metroexplorer.R
 
 class LandmarksActivity : AppCompatActivity() {
 
@@ -14,7 +15,7 @@ class LandmarksActivity : AppCompatActivity() {
 
         staggeredLayoutManager = StaggeredGridLayoutManager(1,
                 StaggeredGridLayoutManager.VERTICAL)
-        list.layoutManager = staggeredLayoutManager
+//        list.layoutManager = staggeredLayoutManager
 //        list.layoutManager = staggeredLayoutManager
 
     }

@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.coursegnome.metroexplorer.MetroStationsActivity">
+    tools:context="com.coursegnome.metroexplorer.activity.MetroStationsActivity">
 
 </android.support.constraint.ConstraintLayout>

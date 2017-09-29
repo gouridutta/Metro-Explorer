@@ -6,9 +6,10 @@
     android:orientation="vertical"
     android:gravity="center"
     android:layout_height="match_parent"
-    tools:context="com.coursegnome.metroexplorer.MainActivity">
+    tools:context="com.coursegnome.metroexplorer.activity.MainActivity">
 
     <Button
+        android:id="@+id/closest_station_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/use_closest_station"
@@ -18,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/select_station_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_station"
