@@ -1,5 +1,8 @@
 package com.coursegnome.metroexplorer.activity
 
+import android.app.PendingIntent.getActivity
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.support.v7.app.AppCompatActivity
@@ -17,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     private var mFusedLocationClient: FusedLocationProviderClient? = null
     lateinit var LocationDetector : LocationDetector
+
+    val MyPREFEFENCES = "MyPrefs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
