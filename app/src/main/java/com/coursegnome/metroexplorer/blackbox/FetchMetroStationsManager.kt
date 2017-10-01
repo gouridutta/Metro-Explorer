@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.koushikdutta.ion.Ion
 import android.provider.Telephony.Mms.Part.FILENAME
+import com.coursegnome.metroexplorer.R.id.list
 import java.io.*
 
 
@@ -16,6 +17,8 @@ class FetchMetroStationsManager(val context : Context) {
 
     val TAG = "FetchMetroStations"
 
+    val FILENAME = "stations"
+
     val WMTA_URL = arrayOf(
             "https://api.wmata.com/Rail.svc/json/jStations?LineCode=RD",
             "https://api.wmata.com/Rail.svc/json/jStations?LineCode=YL",
@@ -24,11 +27,50 @@ class FetchMetroStationsManager(val context : Context) {
             "https://api.wmata.com/Rail.svc/json/jStations?LineCode=OR",
             "https://api.wmata.com/Rail.svc/json/jStations?LineCode=SV")
 
+    fun sizeOfStationObjects () : Int {
+        var count = 0
+        val fis: FileInputStream = context.openFileInput(FILENAME)
+        val ois = ObjectInputStream(fis)
+        try {
+            while (true) {
+                val x = ois.readObject()
+                if (x is StationData) {
+                    ++count
+                }
+            }
+        } catch (e: EOFException) {
+            // done reading, return station data
+            ois.close()
+            fis.close()
+            return count
+        }
+    }
+
+    fun getStation (position : Int) : StationData {
+        var count = 0
+        val fis: FileInputStream = context.openFileInput(FILENAME)
+        val ois = ObjectInputStream(fis)
+        try {
+            while (true) {
+                val x = ois.readObject()
+                if (count == position && x is StationData) {
+                    return x
+                }
+                ++count
+            }
+        } catch (e: EOFException) {
+            // done reading, return station data
+            ois.close()
+            fis.close()
+            val x = listOf ("hello")
+            val errorStation = StationData("Error", x, 10f, 10f)
+            return errorStation
+        }
+    }
+
     fun downloadStationData () {
 
-        val FILENAME = "stations"
         val stations = ArrayList<StationData>()
-        val stationsTwo = ArrayList<StationData>()
 
         // try to read station data from internal storage and move to stations object
         try {
@@ -83,11 +125,9 @@ class FetchMetroStationsManager(val context : Context) {
                             val long = station.get("Lon").asFloat
                             Log.d(TAG, " Name: $name")
                             val newStation = StationData(name, lineList, lat, long)
-
                             if (!isInList(name, stations)) {
                                 stations.add(newStation)
                             }
-                            stationsTwo.add(newStation)
                         }
 
                         val fos : FileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE)
