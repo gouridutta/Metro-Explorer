@@ -1,17 +1,16 @@
 package com.coursegnome.metroexplorer.blackbox
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import com.koushikdutta.ion.Ion
-import org.json.JSONObject
-import android.R.id.edit
 import android.provider.Telephony.Mms.Part.FILENAME
 import java.io.*
 
 
 class FetchMetroStationsManager(val context : Context) {
+
+    // This class functions by performing the API call only once the first time the
+    // loadStationData fun is called. Otherwise it just reads the data from internal storage
 
     val WMTA_KEY = "bf49fc0455044df4a0add492c80eaaf9";
 
@@ -25,9 +24,21 @@ class FetchMetroStationsManager(val context : Context) {
             "https://api.wmata.com/Rail.svc/json/jStations?LineCode=OR",
             "https://api.wmata.com/Rail.svc/json/jStations?LineCode=SV")
 
-    fun loadStationData () {
+    fun downloadStationData () {
 
-        val stations = ArrayList<station>()
+        val FILENAME = "stationsx"
+        val stations = ArrayList<StationData>()
+        val stationsTwo = ArrayList<StationData>()
+
+        // try to read station data from internal storage and move to stations object
+        try {
+            val fis: FileInputStream = context.openFileInput(FILENAME)
+            // return if internal file found
+            return
+        } catch (e : FileNotFoundException) {
+            // if the app hasn't ever fetched the API, do that and write the data to internal storage
+            Log.d(TAG, "File not written yet")
+        }
 
         for (y in 0 until WMTA_URL.size-1) {
             Ion.with(context)
@@ -71,37 +82,28 @@ class FetchMetroStationsManager(val context : Context) {
                             val lat = station.get("Lat").asFloat
                             val long = station.get("Lon").asFloat
                             Log.d(TAG, " Name: $name")
+                            val newStation = StationData(name, lineList, lat, long)
+
                             if (!isInList(name, stations)) {
-                                val newStation = station(name,lineList, lat, long)
                                 stations.add(newStation)
                             }
+                            stationsTwo.add(newStation)
                         }
+
+                        val fos : FileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE)
+                        val oos = ObjectOutputStream(fos)
+                        for (station in stations) {
+                            oos.writeObject(station)
+                        }
+                        oos.close()
+                        fos.close()
                     }
                 })
         }
-
-        val FILENAME = "stations"
-
-        val fos : FileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE)
-        val oos = ObjectOutputStream(fos)
-        oos.writeObject(stations)
-        oos.close()
-        fos.close()
-
-        val fis : FileInputStream = context.openFileInput(FILENAME)
-        val ois = ObjectInputStream(fis)
-        ois.readObject()
-        ois.close()
-        fis.close()
-
-
-//        val editor = sharedPref.edit()
-//        editor.putString("Key1", "Hello")
-//        editor.apply()
-
     }
 
-    fun isInList (name : String, list : ArrayList<station>) : Boolean {
+    // fun to check if Array List contains station with that name
+    fun isInList (name : String, list : ArrayList<StationData>) : Boolean {
         for (i in 0 until list.size) {
             if (list.get(i).name.equals(name)) {
                 return true

@@ -27,15 +27,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val FetchMetroStationsManager = FetchMetroStationsManager(this)
+
+        // load WMTA data if app is being opened for the first time
+        FetchMetroStationsManager.downloadStationData()
+
         closest_station_button.setOnClickListener {
             LocationDetector = LocationDetector()
             LocationDetector.getLocation(this)
         }
 
         select_station_button.setOnClickListener {
-            val FetchMetroStationsManager = FetchMetroStationsManager(this)
-            Log.d("Log works","i hope")
-            FetchMetroStationsManager.loadStationData()
         }
 
     }
