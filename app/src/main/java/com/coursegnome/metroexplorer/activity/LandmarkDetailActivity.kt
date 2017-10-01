@@ -8,6 +8,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTitle("Landmark Title");
         setContentView(R.layout.activity_landmark_detail)
     }
 }

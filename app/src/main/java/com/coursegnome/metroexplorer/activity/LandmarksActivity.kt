@@ -13,6 +13,8 @@ class LandmarksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
+        setTitle("List of Landmarks");
+
         staggeredLayoutManager = StaggeredGridLayoutManager(1,
                 StaggeredGridLayoutManager.VERTICAL)
 //        list.layoutManager = staggeredLayoutManager

@@ -26,7 +26,7 @@ class FetchMetroStationsManager(val context : Context) {
 
     fun downloadStationData () {
 
-        val FILENAME = "stationsx"
+        val FILENAME = "stations"
         val stations = ArrayList<StationData>()
         val stationsTwo = ArrayList<StationData>()
 
