@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.View
 import com.coursegnome.metroexplorer.R
 import com.coursegnome.metroexplorer.blackbox.MetroStationsAdapter
@@ -17,9 +18,7 @@ class MetroStationsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setTitle("Select Metro Station");
-
         setContentView(R.layout.activity_metro_stations)
 
         staggeredLayoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL)

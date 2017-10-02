@@ -1,6 +1,7 @@
 package com.coursegnome.metroexplorer.blackbox
 
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -17,29 +18,14 @@ import com.coursegnome.metroexplorer.activity.MainActivity
 
 
 
-class LocationDetector {
+class LocationDetector (context : Context) {
 
-    private var mFusedLocationClient: FusedLocationProviderClient? = null
-    val REQUEST_CODE_ASK_PERMISSIONS = 123
+    val mFusedLocationClient: FusedLocationProviderClient
+    = LocationServices.getFusedLocationProviderClient(context)
 
-    fun getLocation(activityParam: Activity) {
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activityParam)
+    fun getLocation () {
 
-        val hasWriteContactsPermission = ContextCompat.checkSelfPermission(activityParam, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-        if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(activityParam, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),REQUEST_CODE_ASK_PERMISSIONS)
-        }
-
+        mFusedLocationClient.lastLocation
     }
 
-    fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            REQUEST_CODE_ASK_PERMISSIONS -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission Granted
-                Log.d("Hi", "worked")
-            } else {
-                Log.d("No", "Didnt work")
-            }
-        }
-    }
 }

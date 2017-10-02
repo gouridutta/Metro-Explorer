@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MetroExplorer</string>
+    <string name="app_name">Metro Explorer</string>
     <string name="use_closest_station">Use Closest Station</string>
     <string name="favorites">Favorites</string>
     <string name="select_station">Select Station</string>

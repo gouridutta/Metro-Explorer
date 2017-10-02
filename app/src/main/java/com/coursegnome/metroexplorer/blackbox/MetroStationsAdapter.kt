@@ -27,6 +27,22 @@ class MetroStationsAdapter (private var context: Context) :
         fetchMetro = FetchMetroStationsManager(context)
         val station = fetchMetro.getStation(position)
         holder.itemView.placeName.text = station.name
+        holder.itemView.redcircle.visibility = View.GONE
+        holder.itemView.yellowcircle.visibility = View.GONE
+        holder.itemView.greencircle.visibility = View.GONE
+        holder.itemView.bluecircle.visibility = View.GONE
+        holder.itemView.orangecircle.visibility = View.GONE
+        holder.itemView.silvercircle.visibility = View.GONE
+        for (line in station.lines) {
+            when (line) {
+                "RD" -> holder.itemView.redcircle.visibility = View.VISIBLE
+                "YL" -> holder.itemView.yellowcircle.visibility = View.VISIBLE
+                "GR" -> holder.itemView.greencircle.visibility = View.VISIBLE
+                "BL" -> holder.itemView.bluecircle.visibility = View.VISIBLE
+                "OR" -> holder.itemView.orangecircle.visibility = View.VISIBLE
+                "SB" -> holder.itemView.silvercircle.visibility = View.VISIBLE
+            }
+        }
     }
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder (itemView)

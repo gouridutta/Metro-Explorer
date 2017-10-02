@@ -17,19 +17,16 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_main.*
 import com.coursegnome.metroexplorer.R
+import com.coursegnome.metroexplorer.blackbox.FetchLandmarksManager
 import com.coursegnome.metroexplorer.blackbox.FetchMetroStationsManager
 import com.coursegnome.metroexplorer.blackbox.LocationDetector
 
 
 class MainActivity : AppCompatActivity() {
 
-    private var mFusedLocationClient: FusedLocationProviderClient? = null
-
     val REQUEST_CODE_ASK_PERMISSIONS = 123
 
     fun getLocation(activityParam: Activity) {
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activityParam)
-
         val hasWriteContactsPermission = ContextCompat.checkSelfPermission(activityParam, android.Manifest.permission.ACCESS_COARSE_LOCATION)
         if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activityParam, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_CODE_ASK_PERMISSIONS)
@@ -44,8 +41,10 @@ class MainActivity : AppCompatActivity() {
             REQUEST_CODE_ASK_PERMISSIONS -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission Granted
                 val intent = Intent (this@MainActivity, LandmarksActivity::class.java)
+                intent.putExtra("Parent", "Favorites")
                 startActivity(intent)
             } else {
+                // TODO tell user they can't use this feature without enabling location
                 Log.d("No", "Didnt grant permissions")
             }
         }
@@ -58,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         setTitle("Metro Explorer");
 
         val FetchMetroStationsManager = FetchMetroStationsManager(this)
+        val FetchLandmarksManager = FetchLandmarksManager (this)
 
         // load WMTA data if app is being opened for the first time
         FetchMetroStationsManager.downloadStationData()
