@@ -12,6 +12,7 @@ class MetroStationsAdapter (private var context: Context) :
     RecyclerView.Adapter<MetroStationsAdapter.ViewHolder>() {
 
     lateinit var fetchMetro : FetchMetroStationsManager
+    lateinit var itemClickListener: OnItemClickListener
 
     override fun getItemCount () : Int {
         fetchMetro = FetchMetroStationsManager(context)
@@ -45,6 +46,19 @@ class MetroStationsAdapter (private var context: Context) :
         }
     }
 
-    class ViewHolder (itemView: View) : RecyclerView.ViewHolder (itemView)
+    fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
+        this.itemClickListener = itemClickListener
+    }
+
+    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder (itemView), View.OnClickListener {
+        init {
+            itemView.placeHolder.setOnClickListener(this)
+        }
+        override fun onClick(view: View) = itemClickListener.onItemClick(itemView, adapterPosition)
+
+    }
+    interface OnItemClickListener {
+        fun onItemClick(view: View, position: Int)
+    }
 
 }
