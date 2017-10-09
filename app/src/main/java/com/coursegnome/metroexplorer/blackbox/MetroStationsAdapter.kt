@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import com.coursegnome.metroexplorer.R
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class MetroStationsAdapter (private var context: Context) :
+class MetroStationsAdapter (private var context: Context, var stationData: ArrayList<StationData>) :
     RecyclerView.Adapter<MetroStationsAdapter.ViewHolder>() {
 
     lateinit var fetchMetro : FetchMetroStationsManager
     lateinit var itemClickListener: OnItemClickListener
 
     override fun getItemCount () : Int {
-        fetchMetro = FetchMetroStationsManager(context)
-        return fetchMetro.sizeOfStationObjects()
+        return stationData.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,8 +24,7 @@ class MetroStationsAdapter (private var context: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        fetchMetro = FetchMetroStationsManager(context)
-        val station = fetchMetro.getStation(position)
+        val station = stationData[position]
         holder.itemView.placeName.text = station.name
         holder.itemView.redcircle.visibility = View.GONE
         holder.itemView.yellowcircle.visibility = View.GONE
@@ -41,7 +39,7 @@ class MetroStationsAdapter (private var context: Context) :
                 "GR" -> holder.itemView.greencircle.visibility = View.VISIBLE
                 "BL" -> holder.itemView.bluecircle.visibility = View.VISIBLE
                 "OR" -> holder.itemView.orangecircle.visibility = View.VISIBLE
-                "SB" -> holder.itemView.silvercircle.visibility = View.VISIBLE
+                "SV" -> holder.itemView.silvercircle.visibility = View.VISIBLE
             }
         }
     }

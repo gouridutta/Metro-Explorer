@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         select_station_button.setOnClickListener {
+
             val intent = Intent (this@MainActivity, MetroStationsActivity::class.java)
             startActivity(intent)
         }

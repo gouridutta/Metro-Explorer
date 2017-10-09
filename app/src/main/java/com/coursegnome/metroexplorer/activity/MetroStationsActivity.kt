@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.coursegnome.metroexplorer.R
+import com.coursegnome.metroexplorer.blackbox.FetchMetroStationsManager
 import com.coursegnome.metroexplorer.blackbox.MetroStationsAdapter
 import kotlinx.android.synthetic.main.activity_metro_stations.*
 import kotlinx.android.synthetic.main.list_item.view.*
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 class MetroStationsActivity : AppCompatActivity() {
 
     lateinit var adapter: MetroStationsAdapter
+    lateinit var FetchMetroStationsManager : FetchMetroStationsManager
     lateinit var staggeredLayoutManager : StaggeredGridLayoutManager
 
     private val onItemClickListener = object : MetroStationsAdapter.OnItemClickListener {
@@ -24,6 +26,7 @@ class MetroStationsActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setTitle("Select Metro Station");
         setContentView(R.layout.activity_metro_stations)
@@ -31,13 +34,13 @@ class MetroStationsActivity : AppCompatActivity() {
         staggeredLayoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL)
         list.layoutManager = staggeredLayoutManager
 
-        adapter = MetroStationsAdapter(this)
+        FetchMetroStationsManager = FetchMetroStationsManager(this)
+        val stationData = FetchMetroStationsManager.getAllStations()
+
+        adapter = MetroStationsAdapter(this, stationData)
         list.adapter = adapter
         adapter.setOnItemClickListener(onItemClickListener)
 
-    }
-
-    fun onCreateView () {
     }
 
 }
