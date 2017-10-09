@@ -9,7 +9,7 @@ import com.coursegnome.metroexplorer.R
 import com.coursegnome.metroexplorer.blackbox.FetchMetroStationsManager
 import com.coursegnome.metroexplorer.blackbox.MetroStationsAdapter
 import kotlinx.android.synthetic.main.activity_metro_stations.*
-import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.station_item.view.*
 
 class MetroStationsActivity : AppCompatActivity() {
 
@@ -20,7 +20,11 @@ class MetroStationsActivity : AppCompatActivity() {
     private val onItemClickListener = object : MetroStationsAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
             val intent = Intent (this@MetroStationsActivity, LandmarksActivity::class.java)
-            intent.putExtra("station", view.placeName.text);
+            intent.putExtra("name", view.placeName.text);
+            val lat = view.placeName.getTag(R.id.LAT_TAG) as Float
+            val lon = view.placeName.getTag(R.id.LON_TAG) as Float
+            intent.putExtra("lat", lat);
+            intent.putExtra("lon", lon);
             startActivity(intent)
         }
     }
@@ -37,7 +41,7 @@ class MetroStationsActivity : AppCompatActivity() {
         FetchMetroStationsManager = FetchMetroStationsManager(this)
         val stationData = FetchMetroStationsManager.getAllStations()
 
-        adapter = MetroStationsAdapter(this, stationData)
+        adapter = MetroStationsAdapter(stationData)
         list.adapter = adapter
         adapter.setOnItemClickListener(onItemClickListener)
 

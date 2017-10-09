@@ -2,20 +2,25 @@ package com.coursegnome.metroexplorer.blackbox
 
 import android.content.Context
 import android.util.Log
+import com.koushikdutta.async.future.FutureCallback
 import com.koushikdutta.ion.Ion
+import com.google.gson.JsonObject
 
 class FetchLandmarksManager (val context : Context) {
 
     var YELP_URL : String = "https://api.yelp.com/v3/businesses/search?"
     val TAG = "FetchLandmarksStations"
     val YELP_KEY = "Bearer cHXmBDEtzHsfVObgxTeS6FkXiSuA67mh5v4AVdU0BvDd0Zm40y191eYLdmmUBsyFfeuPxQ-_71qqVWajD-jh6XV_Vcop7G94aLCY5DS_d6mjiqvRQTDN5U_wIVPAWXYx"
-    val YELP_TERM = "landmark"
 
-    fun fetchLandmarks () {
+    var yelpCompleted : YelpSearchCompletedListener? = null
 
-        YELP_URL = YELP_URL + "term=landmark"
-        YELP_URL = YELP_URL + "&latitude=37.786882"
-        YELP_URL = YELP_URL + "&longitude=-122.399972"
+    interface YelpSearchCompletedListener {
+        fun landmarksLoaded(landmarks : ArrayList<Landmark>)
+    }
+
+    fun fetchLandmarks (lat :Float, lon: Float ) {
+
+        YELP_URL = YELP_URL + "term=landmark&latitude=$lat&longitude=$lon&sort_by=distance&limit=10"
 
         val landmarks = ArrayList<Landmark>()
 
@@ -31,7 +36,6 @@ class FetchLandmarksManager (val context : Context) {
                         val results = it.getAsJsonArray("businesses")
                         for (i in 0..results.size() - 1) {
                             val landmark = results.get(i).asJsonObject
-
                             val location = landmark.get("location").asJsonObject
                             val address1 = location.get("address1").asString
                             val city = location.get("city").asString
@@ -63,6 +67,7 @@ class FetchLandmarksManager (val context : Context) {
 
                             landmarks.add(newLandmark)
                         }
+                        yelpCompleted?.landmarksLoaded(landmarks)
                     }
                 })
     }
