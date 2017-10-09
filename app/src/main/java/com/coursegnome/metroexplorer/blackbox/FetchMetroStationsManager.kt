@@ -36,9 +36,8 @@ class FetchMetroStationsManager(val context : Context) {
             "https://api.wmata.com/Rail.svc/json/jStations?LineCode=SV")
 
     fun sizeOfStationObjects () : Int {
-        val x = readStationData.readData()
-        val name = x.name
-        return 10
+        val x = readStationData.readData(context)
+        return x.size
     }
 
     fun getStation (position : Int) : StationData {

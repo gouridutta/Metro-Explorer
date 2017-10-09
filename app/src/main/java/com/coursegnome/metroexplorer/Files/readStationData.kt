@@ -1,20 +1,43 @@
 package com.coursegnome.metroexplorer.Files
 
 import android.content.Context
+import com.beust.klaxon.JSON
+import com.beust.klaxon.JsonArray
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
 import com.coursegnome.metroexplorer.blackbox.StationData
 import com.google.gson.Gson
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
+import com.koushikdutta.async.parser.JSONObjectParser
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.InputStreamReader
 
 /**
  * Created by timtraversy on 10/8/17.
  */
 object readStationData {
-    fun readData (context: Context) : StationData {
-        val jsonString = context.res.file
-        val br = BufferedReader (FileReader("Station Data.json"))
-        val station : StationData = Gson().fromJson(br, StationData::class.java)
-        return station
+
+    fun readData (context: Context) : ArrayList<StationData> {
+
+        val array = Parser().parse(context.assets.open("StationData.json")) as JsonObject
+        val more = array.get("Stations") as JsonArray<String>
+
+        val stationList = ArrayList<StationData>()
+
+        for (i in 0 until more.size) {
+            val newStationObject = more.get(i) as JsonObject
+            val name = newStationObject["Name"].toString()
+            val lines = ArrayList<String>()
+            newStationObject["LineCode1"]?.let { lines.add(newStationObject["LineCode1"].toString()) }
+            newStationObject["LineCode2"]?.let { lines.add(newStationObject["LineCode2"].toString()) }
+            newStationObject["LineCode3"]?.let { lines.add(newStationObject["LineCode3"].toString()) }
+            newStationObject["LineCode4"]?.let { lines.add(newStationObject["LineCode4"].toString()) }
+            val lat = newStationObject["Lat"].toString().toFloat()
+            val lon = newStationObject["Lon"].toString().toFloat()
+            val newStation = StationData(name, lines, lat, lon)
+            stationList.add(newStation)
+        }
+
+        return stationList
     }
 }
