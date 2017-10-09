@@ -22,14 +22,6 @@ class LandmarksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-        val hasWriteContactsPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-        if (hasWriteContactsPermission == PackageManager.PERMISSION_GRANTED) {
-            val y = mFusedLocationClient.lastLocation
-            val x = mFusedLocationClient.lastLocation
-        }
-
         staggeredLayoutManager = StaggeredGridLayoutManager(1,
                 StaggeredGridLayoutManager.VERTICAL)
 

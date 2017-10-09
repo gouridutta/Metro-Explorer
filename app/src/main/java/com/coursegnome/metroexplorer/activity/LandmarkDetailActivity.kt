@@ -15,8 +15,5 @@ class LandmarkDetailActivity : AppCompatActivity() {
         setTitle("Landmark Title");
         setContentView(R.layout.activity_landmark_detail)
 
-        linearLayoutManager = LinearLayoutManager(this)
-        list.layoutManager = linearLayoutManager
-
     }
 }

@@ -1,5 +1,6 @@
 package com.coursegnome.metroexplorer.activity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -26,6 +27,15 @@ class MetroStationsActivity : AppCompatActivity() {
 
         adapter = MetroStationsAdapter(this)
         list.adapter = adapter
+
+        val onItemClickListener = object : MetroStationsAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, position: Int) {
+//                val intent = Intent (this@MetroStationsActivity, LandmarksActivity::class.java)
+//                startActivity(intent)
+            }
+        }
+
+        adapter.setOnItemClickListener(onItemClickListener)
 
     }
 

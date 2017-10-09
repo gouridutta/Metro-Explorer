@@ -59,9 +59,6 @@ class MainActivity : AppCompatActivity() {
         val FetchMetroStationsManager = FetchMetroStationsManager(this)
         val FetchLandmarksManager = FetchLandmarksManager (this)
 
-        // load WMTA data if app is being opened for the first time
-        FetchMetroStationsManager.downloadStationData()
-
         closest_station_button.setOnClickListener {
             getLocation(this)
         }
