@@ -1,6 +1,10 @@
 package com.coursegnome.metroexplorer.activity
 
 import android.content.Intent
+<<<<<<< HEAD
+import android.support.v7.app.AppCompatActivity
+=======
+>>>>>>> refs/remotes/origin/master
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -33,6 +37,15 @@ class MetroStationsActivity : AppCompatActivity() {
 
         adapter = MetroStationsAdapter(this)
         list.adapter = adapter
+        adapter.setOnItemClickListener(onItemClickListener)
+
+        val onItemClickListener = object : MetroStationsAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, position: Int) {
+//                val intent = Intent (this@MetroStationsActivity, LandmarksActivity::class.java)
+//                startActivity(intent)
+            }
+        }
+
         adapter.setOnItemClickListener(onItemClickListener)
 
     }
