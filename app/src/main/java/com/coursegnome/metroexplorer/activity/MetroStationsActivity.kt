@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.coursegnome.metroexplorer.R
-import com.coursegnome.metroexplorer.blackbox.FetchMetroStationsManager
-import com.coursegnome.metroexplorer.blackbox.MetroStationsAdapter
+import com.coursegnome.metroexplorer.tasks.FetchMetroStationsManager
+import com.coursegnome.metroexplorer.tasks.MetroStationsAdapter
 import kotlinx.android.synthetic.main.activity_metro_stations.*
 import kotlinx.android.synthetic.main.station_item.view.*
 
@@ -20,9 +20,10 @@ class MetroStationsActivity : AppCompatActivity() {
     private val onItemClickListener = object : MetroStationsAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
             val intent = Intent (this@MetroStationsActivity, LandmarksActivity::class.java)
-            intent.putExtra("name", view.placeName.text);
             val lat = view.placeName.getTag(R.id.LAT_TAG) as Float
             val lon = view.placeName.getTag(R.id.LON_TAG) as Float
+            val x =  view.placeName.text
+            intent.putExtra("stationName", view.placeName.text)
             intent.putExtra("lat", lat);
             intent.putExtra("lon", lon);
             startActivity(intent)

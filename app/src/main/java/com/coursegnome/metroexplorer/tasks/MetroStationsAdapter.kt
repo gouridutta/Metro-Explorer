@@ -1,10 +1,11 @@
-package com.coursegnome.metroexplorer.blackbox
+package com.coursegnome.metroexplorer.tasks
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.coursegnome.metroexplorer.R
+import com.coursegnome.metroexplorer.model.StationData
 import kotlinx.android.synthetic.main.station_item.view.*
 
 class MetroStationsAdapter (var stationData: ArrayList<StationData>) :

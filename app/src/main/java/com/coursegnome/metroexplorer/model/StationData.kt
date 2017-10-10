@@ -1,4 +1,4 @@
-package com.coursegnome.metroexplorer.blackbox
+package com.coursegnome.metroexplorer.model
 
 import java.io.Serializable
 

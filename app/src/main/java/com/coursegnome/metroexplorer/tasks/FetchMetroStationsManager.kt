@@ -1,9 +1,10 @@
-package com.coursegnome.metroexplorer.blackbox
+package com.coursegnome.metroexplorer.tasks
 
 import android.content.Context
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
+import com.coursegnome.metroexplorer.model.StationData
 
 class FetchMetroStationsManager(val context : Context) {
 

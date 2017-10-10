@@ -2,4 +2,11 @@
 <resources>
     <item name = "LAT_TAG" type = "id"/>
     <item name = "LON_TAG" type = "id"/>
+    <item name = "STATION_NAME" type = "id"/>
+    <item name = "LANDMARK_NAME_TAG" type="id"/>
+    <item name = "ADDRESS_TAG" type = "id"/>
+    <item name = "PHONE_TAG" type = "id"/>
+    <item name = "DISTANCE_TAG" type="id"/>
+    <item name = "YELP_URL_TAG" type="id"/>
+    <item name = "IMAGE_URL_TAG" type="id"/>
 </resources>

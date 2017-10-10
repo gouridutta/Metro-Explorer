@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.coursegnome.metroexplorer.R
-import com.coursegnome.metroexplorer.blackbox.FetchLandmarksManager
-import com.coursegnome.metroexplorer.blackbox.Landmark
-import com.coursegnome.metroexplorer.blackbox.LandmarksAdapter
-import com.coursegnome.metroexplorer.blackbox.MetroStationsAdapter
+import com.coursegnome.metroexplorer.tasks.FetchLandmarksManager
+import com.coursegnome.metroexplorer.model.Landmark
+import com.coursegnome.metroexplorer.tasks.LandmarksAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.android.synthetic.main.activity_metro_stations.*
+import kotlinx.android.synthetic.main.landmark_item.view.*
 import kotlinx.android.synthetic.main.station_item.view.*
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchCompletedListener {
@@ -21,14 +21,18 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchC
     lateinit var landmarksManager : FetchLandmarksManager
     lateinit var adapter: LandmarksAdapter
 
+    var stationName : String? = null
+
     private val onItemClickListener = object : LandmarksAdapter.OnItemClickListener {
         override fun onItemClick(view: View, position: Int) {
             val intent = Intent (this@LandmarksActivity, LandmarkDetailActivity::class.java)
-            intent.putExtra("name", view.placeName.text);
-            val lat = view.placeName.getTag(R.id.LAT_TAG) as Float
-            val lon = view.placeName.getTag(R.id.LON_TAG) as Float
-            intent.putExtra("lat", lat);
-            intent.putExtra("lon", lon);
+            intent.putExtra("stationName", stationName)
+            intent.putExtra("landmarkName",view.landmarkName.getTag(R.id.LANDMARK_NAME_TAG) as String )
+            intent.putExtra("address",view.landmarkName.getTag(R.id.ADDRESS_TAG) as String )
+            intent.putExtra("distance",view.landmarkName.getTag(R.id.DISTANCE_TAG) as Float)
+            intent.putExtra("phone",view.landmarkName.getTag(R.id.PHONE_TAG) as String)
+            intent.putExtra("yelp_url",view.landmarkName.getTag(R.id.YELP_URL_TAG) as String)
+            intent.putExtra("image_url",view.landmarkName.getTag(R.id.IMAGE_URL_TAG) as String)
             startActivity(intent)
         }
     }
@@ -43,9 +47,9 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchC
         landmarksManager = FetchLandmarksManager(this)
         landmarksManager.yelpCompleted = this
 
-        val selectedStation = intent.getStringExtra("name")
         val lat = intent.getFloatExtra("lat", 0.0f)
         val lon = intent.getFloatExtra("lon", 0.0f)
+        stationName =  intent.getStringExtra("stationName")
 
         landmarksManager.fetchLandmarks(lat, lon)
 

@@ -43,6 +43,7 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.2.1'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.beust:klaxon:0.30'
+    compile 'com.google.android.gms:play-services-maps:11.4.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {

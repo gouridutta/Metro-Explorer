@@ -1,4 +1,4 @@
-package com.coursegnome.metroexplorer.blackbox
+package com.coursegnome.metroexplorer.tasks
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.coursegnome.metroexplorer.R
+import com.coursegnome.metroexplorer.model.Landmark
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.landmark_item.view.*
+import java.io.File
 
 class LandmarksAdapter(var landmarksData: ArrayList<Landmark>, var context: Context) : RecyclerView.Adapter<LandmarksAdapter.ViewHolder>() {
 
@@ -25,7 +27,17 @@ class LandmarksAdapter(var landmarksData: ArrayList<Landmark>, var context: Cont
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val landmark = landmarksData[position]
         holder.itemView.landmarkName.text = landmark.name
-        Picasso.with(context).load(landmark.image_url).into(holder.itemView.backgroundImage)
+        if (landmark.image_url!="") {
+            Picasso.with(context).load(landmark.image_url).into(holder.itemView.backgroundImage)
+        } else {
+            holder.itemView.backgroundImage.setImageResource(R.drawable.placeholder)
+        }
+        holder.itemView.landmarkName.setTag(R.id.LANDMARK_NAME_TAG, landmark.name)
+        holder.itemView.landmarkName.setTag(R.id.ADDRESS_TAG, landmark.location.display_address)
+        holder.itemView.landmarkName.setTag(R.id.DISTANCE_TAG, landmark.distance)
+        holder.itemView.landmarkName.setTag(R.id.PHONE_TAG, landmark.display_phone)
+        holder.itemView.landmarkName.setTag(R.id.YELP_URL_TAG, landmark.url)
+        holder.itemView.landmarkName.setTag(R.id.IMAGE_URL_TAG, landmark.image_url)
     }
 
     fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
