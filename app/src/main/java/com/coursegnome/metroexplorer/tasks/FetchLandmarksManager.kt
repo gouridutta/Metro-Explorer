@@ -1,10 +1,9 @@
-package com.coursegnome.metroexplorer.blackbox
+package com.coursegnome.metroexplorer.tasks
 
 import android.content.Context
 import android.util.Log
-import com.koushikdutta.async.future.FutureCallback
+import com.coursegnome.metroexplorer.model.Landmark
 import com.koushikdutta.ion.Ion
-import com.google.gson.JsonObject
 
 class FetchLandmarksManager (val context : Context) {
 
@@ -45,7 +44,7 @@ class FetchLandmarksManager (val context : Context) {
                             val display_addressArray = location.get("display_address").asJsonArray
                             var display_address = display_addressArray[0].asString
                             for (i in 1 until display_addressArray.size()) {
-                                display_address += "\n${display_addressArray[i]}"
+                                display_address += "\n${display_addressArray[i].asString}"
                             }
                             val newLocation = Landmark.Location (address1, city, zip_code, country,
                                     state, display_address)
@@ -62,7 +61,7 @@ class FetchLandmarksManager (val context : Context) {
                             val display_phone = landmark.get("display_phone").asString
                             val distance = landmark.get("distance").asFloat
 
-                            val newLandmark = Landmark (name, image_url, url, lat, lon, newLocation,
+                            val newLandmark = Landmark(name, image_url, url, lat, lon, newLocation,
                                     phone, display_phone, distance)
 
                             landmarks.add(newLandmark)
