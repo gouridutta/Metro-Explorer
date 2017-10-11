@@ -84,7 +84,7 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
             if(p0 != null && p0.length > 0){
                 val localList :ArrayList<StationData> = ArrayList<StationData>()
                 for(i in 0..stationDataFull.size.minus(1)) {
-                    if(stationDataFull.get(i).name.toLowerCase().contains(p0.toString()) as Boolean) {
+                    if(stationDataFull.get(i).name.toLowerCase().contains(p0.toString().toLowerCase()) as Boolean) {
                         localList.add(stationDataFull.get(i))
                     }
                 }
