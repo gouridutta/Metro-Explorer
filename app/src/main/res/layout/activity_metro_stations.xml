@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,14 +8,24 @@
     tools:context="com.coursegnome.metroexplorer.activity.MetroStationsActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/game_toolbar"
-        android:layout_height="?android:attr/actionBarSize"
+        android:id="@+id/metro_toolbar"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/colorAccent"
-        />
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme= "@style/AppTheme.ActionBarTheme"/>
+
+
+        <!--android:minHeight="?attr/actionBarSize" />-->
+        <!--&lt;!&ndash;tools.layout_ConstraintStart_toStartOf= "parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;tools.layout_ConstraintEnd_toEndOf= "parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;tools.layout_ConstraintTop_toTopOf= "parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;tools.layout_ConstraintBottom_toBottomOf= "parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;tools.layout_ConstraintVertical_bais= "0.0"&ndash;&gt;-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
 </LinearLayout>

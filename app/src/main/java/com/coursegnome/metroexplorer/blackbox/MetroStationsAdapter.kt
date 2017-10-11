@@ -4,13 +4,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import com.coursegnome.metroexplorer.R
 import kotlinx.android.synthetic.main.station_item.view.*
 
 class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
-    RecyclerView.Adapter<MetroStationsAdapter.ViewHolder>() {
-
+    RecyclerView.Adapter<MetroStationsAdapter.ViewHolder>(), Filterable {
     lateinit var itemClickListener: OnItemClickListener
+    private var recycleFilter : RecycleFilter? = null
+    private var stationDataFull: ArrayList<StationData> = stationData
+
 
     override fun getItemCount () : Int {
         return stationData.size
@@ -44,6 +48,13 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
         }
     }
 
+    override fun getFilter(): Filter {
+        if(recycleFilter == null) {
+            recycleFilter = RecycleFilter()
+        }
+        return recycleFilter as RecycleFilter
+    }
+
     fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
         this.itemClickListener = itemClickListener
     }
@@ -57,6 +68,33 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
     }
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
+    }
+
+
+
+    inner class RecycleFilter: Filter() {
+        override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
+            stationData = p1?.values as ArrayList<StationData>
+            notifyDataSetChanged()
+        }
+
+        override fun performFiltering(p0: CharSequence?): FilterResults {
+            var results: FilterResults = FilterResults()
+            if(p0 != null && p0.length > 0){
+                var localList :ArrayList<StationData> = ArrayList<StationData>()
+                for(i : Int in 0..stationDataFull?.size?.minus(1)) {
+                    if(stationDataFull?.get(i)?.name?.contains(p0.toString()) as Boolean) {
+                        localList.add(stationDataFull?.get(i))
+                    }
+                }
+                results.values = localList
+                results.count = localList.size
+            } else {
+                results.values = stationDataFull
+                results.count= stationDataFull?.size
+            }
+            return results
+        }
     }
 
 }
