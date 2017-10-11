@@ -7,6 +7,6 @@
     <string name="phone">Phone</string>
     <string name="distance">Distance</string>
     <string name="view_on">View on</string>
-    <string name="distance_feet">%1$d ft. from %2$s</string>
+    <string name="distance_feet">%1$s miles from %2$s station</string>
     <string name="yelp"><u>Yelp</u></string>
 </resources>

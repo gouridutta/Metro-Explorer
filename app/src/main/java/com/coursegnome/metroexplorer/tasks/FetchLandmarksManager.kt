@@ -36,7 +36,7 @@ class FetchLandmarksManager (val context : Context) {
                         for (i in 0..results.size() - 1) {
                             val landmark = results.get(i).asJsonObject
                             val location = landmark.get("location").asJsonObject
-                            val address1 = location.get("address1").asString
+//                            val address1 = location.get("address1").asString
                             val city = location.get("city").asString
                             val zip_code = location.get("zip_code").asString
                             val country = location.get("country").asString
@@ -46,7 +46,7 @@ class FetchLandmarksManager (val context : Context) {
                             for (i in 1 until display_addressArray.size()) {
                                 display_address += "\n${display_addressArray[i].asString}"
                             }
-                            val newLocation = Landmark.Location (address1, city, zip_code, country,
+                            val newLocation = Landmark.Location ("Empty", city, zip_code, country,
                                     state, display_address)
 
                             val name = landmark.get("name").asString

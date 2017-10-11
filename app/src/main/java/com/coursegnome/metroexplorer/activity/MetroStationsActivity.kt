@@ -29,7 +29,6 @@ class MetroStationsActivity : AppCompatActivity(){
             val intent = Intent (this@MetroStationsActivity, LandmarksActivity::class.java)
             val lat = view.placeName.getTag(R.id.LAT_TAG) as Float
             val lon = view.placeName.getTag(R.id.LON_TAG) as Float
-            val x =  view.placeName.text
             intent.putExtra("stationName", view.placeName.text)
             intent.putExtra("lat", lat);
             intent.putExtra("lon", lon);
@@ -48,7 +47,7 @@ class MetroStationsActivity : AppCompatActivity(){
 
         metro_toolbar.setTitleTextColor(ContextCompat.getColor(this@MetroStationsActivity, R.color.colorWhite))
         setSupportActionBar(metro_toolbar)
-        supportActionBar?.title = "Search"
+        supportActionBar?.title = getString(R.string.select_station)
 
         FetchMetroStationsManager = FetchMetroStationsManager(this)
         val stationData = FetchMetroStationsManager.getAllStations()
@@ -69,7 +68,7 @@ class MetroStationsActivity : AppCompatActivity(){
           }
 
           override fun onQueryTextChange(p0:String?): Boolean {
-            adapter?.filter?.filter(p0)
+            adapter.filter.filter(p0)
               return false
           }
 

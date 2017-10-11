@@ -49,9 +49,6 @@ class MainActivity : AppCompatActivity() {
 
         setTitle("Metro Explorer");
 
-        val FetchMetroStationsManager = FetchMetroStationsManager(this)
-        val FetchLandmarksManager = FetchLandmarksManager (this)
-
         closest_station_button.setOnClickListener {
             getLocation(this)
         }

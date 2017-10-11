@@ -30,9 +30,9 @@ class LandmarkDetailActivity : AppCompatActivity() {
             distanceLabel.visibility = View.GONE
             distance.visibility = View.GONE
         } else {
-            meters *= 3.28f
-            val feet = Math.round(meters)
-            distance.text = getString(R.string.distance_feet, feet, stationName)
+            meters *= 0.00062f
+            val miles = String.format("%.2f", meters)
+            distance.text = getString(R.string.distance_feet, miles, stationName)
         }
 
         phone.text = intent.getStringExtra("phone")

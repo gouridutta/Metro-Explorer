@@ -80,19 +80,19 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
         }
 
         override fun performFiltering(p0: CharSequence?): FilterResults {
-            var results: FilterResults = FilterResults()
+            val results = FilterResults()
             if(p0 != null && p0.length > 0){
-                var localList :ArrayList<StationData> = ArrayList<StationData>()
-                for(i : Int in 0..stationDataFull?.size?.minus(1)) {
-                    if(stationDataFull?.get(i)?.name?.contains(p0.toString()) as Boolean) {
-                        localList.add(stationDataFull?.get(i))
+                val localList :ArrayList<StationData> = ArrayList<StationData>()
+                for(i in 0..stationDataFull.size.minus(1)) {
+                    if(stationDataFull.get(i).name.toLowerCase().contains(p0.toString()) as Boolean) {
+                        localList.add(stationDataFull.get(i))
                     }
                 }
                 results.values = localList
                 results.count = localList.size
             } else {
                 results.values = stationDataFull
-                results.count= stationDataFull?.size
+                results.count= stationDataFull.size
             }
             return results
         }

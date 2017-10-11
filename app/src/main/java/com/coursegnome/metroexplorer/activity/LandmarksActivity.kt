@@ -2,6 +2,7 @@ package com.coursegnome.metroexplorer.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
@@ -10,9 +11,8 @@ import com.coursegnome.metroexplorer.tasks.FetchLandmarksManager
 import com.coursegnome.metroexplorer.model.Landmark
 import com.coursegnome.metroexplorer.tasks.LandmarksAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
-import kotlinx.android.synthetic.main.activity_metro_stations.*
+import kotlinx.android.synthetic.main.activity_landmarks.*
 import kotlinx.android.synthetic.main.landmark_item.view.*
-import kotlinx.android.synthetic.main.station_item.view.*
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchCompletedListener {
 
@@ -51,16 +51,20 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchC
         val lon = intent.getFloatExtra("lon", 0.0f)
         stationName =  intent.getStringExtra("stationName")
 
+        landmark_toolbar.setTitleTextColor(ContextCompat.getColor(this@LandmarksActivity, R.color.colorWhite))
+        setSupportActionBar(landmark_toolbar)
+        supportActionBar?.title = stationName + " Landmarks"
+
         landmarksManager.fetchLandmarks(lat, lon)
 
     }
 
     override fun landmarksLoaded(landmarks: ArrayList<Landmark>) {
-        val x = landmarks.get(0)
-        val y = 2
+        avi.hide()
         adapter = LandmarksAdapter(landmarks, this)
         list.adapter = adapter
         adapter.setOnItemClickListener(onItemClickListener)
+
     }
 
 }

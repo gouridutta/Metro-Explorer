@@ -7,5 +7,5 @@
     <string name="phone">Téléphone</string>
     <string name="distance">Distance</string>
     <string name="view_on">Afficher sur</string>
-    <string name="distance_feet">%1$d ft. de %2$s</string>
+    <string name="distance_feet">%1$s miles de la gare %2$s</string>
 </resources>
