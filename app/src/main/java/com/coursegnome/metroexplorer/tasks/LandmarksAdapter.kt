@@ -9,7 +9,6 @@ import com.coursegnome.metroexplorer.R
 import com.coursegnome.metroexplorer.model.Landmark
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.landmark_item.view.*
-import java.io.File
 
 class LandmarksAdapter(var landmarksData: ArrayList<Landmark>, var context: Context) : RecyclerView.Adapter<LandmarksAdapter.ViewHolder>() {
 

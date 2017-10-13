@@ -2,7 +2,6 @@ package com.coursegnome.metroexplorer.activity
 
 import android.content.Intent
 import android.net.Uri
-import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -10,7 +9,6 @@ import android.view.View
 import com.coursegnome.metroexplorer.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
-import kotlinx.android.synthetic.main.activity_metro_stations.*
 
 class LandmarkDetailActivity : AppCompatActivity() {
 
@@ -59,7 +57,6 @@ class LandmarkDetailActivity : AppCompatActivity() {
         yelp_link.setOnClickListener {
             val yelpIntent = Intent()
             yelpIntent.setAction(Intent.ACTION_VIEW)
-//            yelpIntent.putExtra(Intent.parseUri(intent.getStringExtra("yelp_url"), ))
             yelpIntent.setData(Uri.parse(intent.getStringExtra("yelp_url")))
             startActivity(yelpIntent)
         }

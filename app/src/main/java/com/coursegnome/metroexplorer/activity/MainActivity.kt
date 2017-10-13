@@ -11,9 +11,6 @@ import android.support.v4.content.ContextCompat
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import com.coursegnome.metroexplorer.R
-import com.coursegnome.metroexplorer.tasks.FetchLandmarksManager
-import com.coursegnome.metroexplorer.tasks.FetchMetroStationsManager
-
 
 class MainActivity : AppCompatActivity() {
 

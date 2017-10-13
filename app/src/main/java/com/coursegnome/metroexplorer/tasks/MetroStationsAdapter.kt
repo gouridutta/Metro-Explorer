@@ -16,7 +16,6 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
     private var recycleFilter : RecycleFilter? = null
     private var stationDataFull: ArrayList<StationData> = stationData
 
-
     override fun getItemCount () : Int {
         return stationData.size
     }
@@ -70,8 +69,6 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
     }
-
-
 
     inner class RecycleFilter: Filter() {
         override fun publishResults(p0: CharSequence?, p1: FilterResults?) {

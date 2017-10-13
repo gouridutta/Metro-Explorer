@@ -16,8 +16,6 @@ import com.coursegnome.metroexplorer.tasks.MetroStationsAdapter
 import kotlinx.android.synthetic.main.activity_metro_stations.*
 import kotlinx.android.synthetic.main.station_item.view.*
 
-
-
 class MetroStationsActivity : AppCompatActivity(){
     lateinit var adapter: MetroStationsAdapter
     lateinit var FetchMetroStationsManager : FetchMetroStationsManager
