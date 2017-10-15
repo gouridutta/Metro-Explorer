@@ -85,8 +85,25 @@ class LandmarkDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        persistanceManager.saveFavoriteLandmarks(landmark)
-        Toast.makeText(this@LandmarkDetailActivity, landmark.name + " saved as favorite", Toast.LENGTH_SHORT).show();
+        val id  = item?.itemId
+        when (id) {
+            R.id.favorite -> {
+                val landmarkname = intent.getStringExtra("landmarkName")
+                if (persistanceManager.saveFavoriteLandmarks(landmark)) {
+                    Toast.makeText(this@LandmarkDetailActivity, landmarkname + " saved as favorite", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this@LandmarkDetailActivity, landmarkname + " is already saved as favorite", Toast.LENGTH_SHORT).show();
+                }
+            }
+            R.id.action_settings -> {
+                Toast.makeText(this@LandmarkDetailActivity,"share", Toast.LENGTH_SHORT).show();
+            }
+            else -> {
+                //
+            }
+        }
+
+
         return super.onOptionsItemSelected(item)
     }
 

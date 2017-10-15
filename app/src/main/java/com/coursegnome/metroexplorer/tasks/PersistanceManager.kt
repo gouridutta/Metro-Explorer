@@ -18,12 +18,24 @@ class PersistanceManager(context: Context) {
         preference = PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-    fun saveFavoriteLandmarks(landmark: Landmark) {
-        val landmarks : HashSet<Landmark> = getSavedFavoriteLandmarks().toHashSet()
-        landmarks.add(landmark)
-        val editor = preference.edit()
-        editor.putString(Keys.PREFERENCE_KEY, Gson().toJson(landmarks))
-        editor.apply()
+    fun saveFavoriteLandmarks(landmark: Landmark) : Boolean {
+        val landmarks = getSavedFavoriteLandmarks()
+        landmarks.sortWith(compareBy { it.name })
+        if (searchIfElementAlreadyExist(landmark, landmarks)) {
+            landmarks.add(landmark)
+            val editor = preference.edit()
+            editor.putString(Keys.PREFERENCE_KEY, Gson().toJson(landmarks))
+            editor.apply()
+            return true
+        }
+        return false
+    }
+
+    /**
+     * Check if landmark is already in favorite list
+     */
+    fun searchIfElementAlreadyExist(toSearch : Landmark ,list: ArrayList<Landmark>) : Boolean {
+        return list.binarySearch(toSearch, compareBy { it.name }, 0, list.size) < 0
     }
 
     fun getSavedFavoriteLandmarks() : ArrayList<Landmark> {

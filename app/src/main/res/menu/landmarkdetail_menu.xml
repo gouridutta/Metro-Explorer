@@ -13,6 +13,6 @@
     <!--Setting/Share icon-->
         <item
             android:id="@+id/action_settings"
-            android:title= "Settings"
+            android:title= "Share"
             app:showAsAction="never|collapseActionView"/>
     </menu>
