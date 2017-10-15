@@ -2,24 +2,40 @@ package com.coursegnome.metroexplorer.activity
 
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.coursegnome.metroexplorer.R
+import com.coursegnome.metroexplorer.model.Landmark
+import com.coursegnome.metroexplorer.tasks.PersistanceManager
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
 
 class LandmarkDetailActivity : AppCompatActivity() {
-
+    private lateinit var persistanceManager: PersistanceManager
     lateinit var linearLayoutManager : LinearLayoutManager
+    private lateinit var landmark : Landmark
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle("Landmark Title");
         setContentView(R.layout.activity_landmark_detail)
 
+        //initialize Persistance Manager
+        persistanceManager = PersistanceManager(this)
+
+        landmarkdetail_toolbar.setTitleTextColor(ContextCompat.getColor(this@LandmarkDetailActivity, R.color.colorWhite))
+        setSupportActionBar(landmarkdetail_toolbar)
+        //supportActionBar?.title = "Add Favorite"
+        landmark = intent.getSerializableExtra("landmarkObject") as Landmark
+
         landmarkName.text = intent.getStringExtra("landmarkName")
+        supportActionBar?.title = landmarkName.text
         address.text = intent.getStringExtra("address")
 
         val stationName = intent.getStringExtra("stationName")
@@ -62,6 +78,18 @@ class LandmarkDetailActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.landmarkdetail_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        persistanceManager.saveFavoriteLandmarks(landmark)
+        Toast.makeText(this@LandmarkDetailActivity, landmark.name + " saved as favorite", Toast.LENGTH_SHORT).show();
+        return super.onOptionsItemSelected(item)
+    }
+
 
 
 }

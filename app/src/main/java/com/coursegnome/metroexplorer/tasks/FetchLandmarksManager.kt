@@ -10,18 +10,17 @@ class FetchLandmarksManager (val context : Context) {
     var YELP_URL : String = "https://api.yelp.com/v3/businesses/search?"
     val TAG = "FetchLandmarksStations"
     val YELP_KEY = "Bearer cHXmBDEtzHsfVObgxTeS6FkXiSuA67mh5v4AVdU0BvDd0Zm40y191eYLdmmUBsyFfeuPxQ-_71qqVWajD-jh6XV_Vcop7G94aLCY5DS_d6mjiqvRQTDN5U_wIVPAWXYx"
-
+    val landmarks = HashMap<String, Landmark>()
     var yelpCompleted : YelpSearchCompletedListener? = null
 
     interface YelpSearchCompletedListener {
         fun landmarksLoaded(landmarks : ArrayList<Landmark>)
     }
 
-    fun fetchLandmarks (lat :Float, lon: Float ) {
+    fun fetchLandmarks (lat :Float, lon: Float )  {
 
         YELP_URL = YELP_URL + "term=landmark&latitude=$lat&longitude=$lon&sort_by=distance&limit=10"
-
-        val landmarks = ArrayList<Landmark>()
+        //val landmarks = ArrayList<Landmark>()
 
         Ion.with(context)
                 .load(YELP_URL)
@@ -64,11 +63,16 @@ class FetchLandmarksManager (val context : Context) {
                             val newLandmark = Landmark(name, image_url, url, lat, lon, newLocation,
                                     phone, display_phone, distance)
 
-                            landmarks.add(newLandmark)
+                            landmarks.put(name,newLandmark)
                         }
-                        yelpCompleted?.landmarksLoaded(landmarks)
+                        yelpCompleted?.landmarksLoaded(ArrayList(landmarks.values))
                     }
                 })
+
+    }
+
+    fun getLandmark(landmarkName : String) : Landmark? {
+       return landmarks.get(landmarkName)
     }
 
 }

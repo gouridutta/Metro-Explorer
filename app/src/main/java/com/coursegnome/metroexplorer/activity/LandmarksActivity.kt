@@ -7,12 +7,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.coursegnome.metroexplorer.R
-import com.coursegnome.metroexplorer.tasks.FetchLandmarksManager
 import com.coursegnome.metroexplorer.model.Landmark
+import com.coursegnome.metroexplorer.tasks.FetchLandmarksManager
 import com.coursegnome.metroexplorer.tasks.LandmarksAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.android.synthetic.main.activity_landmarks.*
 import kotlinx.android.synthetic.main.landmark_item.view.*
+import java.io.Serializable
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchCompletedListener {
 
@@ -33,6 +34,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchC
             intent.putExtra("phone",view.landmarkName.getTag(R.id.PHONE_TAG) as String)
             intent.putExtra("yelp_url",view.landmarkName.getTag(R.id.YELP_URL_TAG) as String)
             intent.putExtra("image_url",view.landmarkName.getTag(R.id.IMAGE_URL_TAG) as String)
+            intent.putExtra("landmarkObject", landmarksManager.getLandmark(view.landmarkName.getTag(R.id.LANDMARK_NAME_TAG) as String)as Serializable)
             startActivity(intent)
         }
     }
@@ -66,5 +68,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchC
         adapter.setOnItemClickListener(onItemClickListener)
 
     }
+
 
 }
