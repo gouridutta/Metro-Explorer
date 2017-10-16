@@ -20,10 +20,3 @@
             app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
     </menu>
 
-    <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_share_black_24dp"
-        android:title="Share"
-        app:showAsAction="always|collapseActionView" />
-</menu>
-
