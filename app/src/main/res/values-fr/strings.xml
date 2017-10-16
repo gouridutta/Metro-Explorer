@@ -13,4 +13,5 @@
         Allez dans Paramètres -> Sécurité -> Localisation ->
         Autorisations d'accès aux applications.</string>
     <string name="noYelp">Les points de repère ne peuvent pas être chargés sur Yelp. Vérifiez votre connection internet.</string>
+    <string name="noMaps">Impossible d\'accéder à Google Maps..</string>
 </resources>

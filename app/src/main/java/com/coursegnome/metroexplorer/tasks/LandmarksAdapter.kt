@@ -14,7 +14,7 @@ class LandmarksAdapter(var landmarksData: ArrayList<Landmark>, var context: Cont
 
     lateinit var itemClickListener: OnItemClickListener
 
-    override fun getItemCount () : Int {
+    override fun getItemCount(): Int {
         return landmarksData.size
     }
 
@@ -26,7 +26,7 @@ class LandmarksAdapter(var landmarksData: ArrayList<Landmark>, var context: Cont
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val landmark = landmarksData[position]
         holder.itemView.landmarkName.text = landmark.name
-        if (landmark.image_url!="") {
+        if (landmark.image_url != "") {
             Picasso.with(context).load(landmark.image_url).into(holder.itemView.backgroundImage)
         } else {
             holder.itemView.backgroundImage.setImageResource(R.drawable.placeholder)
@@ -43,13 +43,15 @@ class LandmarksAdapter(var landmarksData: ArrayList<Landmark>, var context: Cont
         this.itemClickListener = itemClickListener
     }
 
-    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         init {
             itemView.placeHolder.setOnClickListener(this)
         }
+
         override fun onClick(view: View) = itemClickListener.onItemClick(itemView, adapterPosition)
 
     }
+
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
     }

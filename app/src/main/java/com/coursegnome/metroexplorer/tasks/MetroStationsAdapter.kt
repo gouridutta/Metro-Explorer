@@ -10,13 +10,13 @@ import com.coursegnome.metroexplorer.R
 import com.coursegnome.metroexplorer.model.StationData
 import kotlinx.android.synthetic.main.station_item.view.*
 
-class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
-    RecyclerView.Adapter<MetroStationsAdapter.ViewHolder>(), Filterable {
+class MetroStationsAdapter(var stationData: ArrayList<StationData>) :
+        RecyclerView.Adapter<MetroStationsAdapter.ViewHolder>(), Filterable {
     lateinit var itemClickListener: OnItemClickListener
-    private var recycleFilter : RecycleFilter? = null
+    private var recycleFilter: RecycleFilter? = null
     private var stationDataFull: ArrayList<StationData> = stationData
 
-    override fun getItemCount () : Int {
+    override fun getItemCount(): Int {
         return stationData.size
     }
 
@@ -49,7 +49,7 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
     }
 
     override fun getFilter(): Filter {
-        if(recycleFilter == null) {
+        if (recycleFilter == null) {
             recycleFilter = RecycleFilter()
         }
         return recycleFilter as RecycleFilter
@@ -59,18 +59,20 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
         this.itemClickListener = itemClickListener
     }
 
-    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder (itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         init {
             itemView.placeHolder.setOnClickListener(this)
         }
+
         override fun onClick(view: View) = itemClickListener.onItemClick(itemView, adapterPosition)
 
     }
+
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
     }
 
-    inner class RecycleFilter: Filter() {
+    inner class RecycleFilter : Filter() {
         override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
             stationData = p1?.values as ArrayList<StationData>
             notifyDataSetChanged()
@@ -78,10 +80,10 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
 
         override fun performFiltering(p0: CharSequence?): FilterResults {
             val results = FilterResults()
-            if(p0 != null && p0.length > 0){
-                val localList :ArrayList<StationData> = ArrayList<StationData>()
-                for(i in 0..stationDataFull.size.minus(1)) {
-                    if(stationDataFull.get(i).name.toLowerCase().contains(p0.toString().toLowerCase()) as Boolean) {
+            if (p0 != null && p0.length > 0) {
+                val localList: ArrayList<StationData> = ArrayList<StationData>()
+                for (i in 0..stationDataFull.size.minus(1)) {
+                    if (stationDataFull.get(i).name.toLowerCase().contains(p0.toString().toLowerCase()) as Boolean) {
                         localList.add(stationDataFull.get(i))
                     }
                 }
@@ -89,7 +91,7 @@ class MetroStationsAdapter (var stationData: ArrayList<StationData>) :
                 results.count = localList.size
             } else {
                 results.values = stationDataFull
-                results.count= stationDataFull.size
+                results.count = stationDataFull.size
             }
             return results
         }

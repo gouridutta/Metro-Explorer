@@ -6,12 +6,12 @@ import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
 import com.coursegnome.metroexplorer.model.StationData
 
-class FetchMetroStationsManager(val context : Context) {
+class FetchMetroStationsManager(val context: Context) {
 
     // This class functions by performing the API call only once the first time the
     // loadStationData fun is called. Otherwise it just reads the data from internal storage
 
-    fun getAllStations () : ArrayList<StationData> {
+    fun getAllStations(): ArrayList<StationData> {
 
         val array = Parser().parse(context.assets.open("StationData.json")) as JsonObject
         val more = array.get("Stations") as JsonArray<String>

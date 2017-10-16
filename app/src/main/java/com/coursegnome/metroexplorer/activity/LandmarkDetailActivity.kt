@@ -18,26 +18,29 @@ import kotlinx.android.synthetic.main.activity_landmark_detail.*
 
 class LandmarkDetailActivity : AppCompatActivity() {
     private lateinit var persistanceManager: PersistanceManager
-    lateinit var linearLayoutManager : LinearLayoutManager
-    private lateinit var landmark : Landmark
+    lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var landmark: Landmark
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        // Begin setting up layout
         super.onCreate(savedInstanceState)
-        setTitle("Landmark Title");
         setContentView(R.layout.activity_landmark_detail)
 
         //initialize Persistance Manager
         persistanceManager = PersistanceManager(this)
 
+        // Add toolbar
         landmarkdetail_toolbar.setTitleTextColor(ContextCompat.getColor(this@LandmarkDetailActivity, R.color.colorWhite))
         setSupportActionBar(landmarkdetail_toolbar)
-        //supportActionBar?.title = "Add Favorite"
         landmark = intent.getSerializableExtra("landmarkObject") as Landmark
 
+        // Update name and address in layout
         landmarkName.text = intent.getStringExtra("landmarkName")
         supportActionBar?.title = landmarkName.text
         address.text = intent.getStringExtra("address")
 
+        // Update distance in layout
         val stationName = intent.getStringExtra("stationName")
         var meters = intent.getFloatExtra("distance", 0.0f)
         if (meters == 0.0f) {
@@ -49,25 +52,33 @@ class LandmarkDetailActivity : AppCompatActivity() {
             distance.text = getString(R.string.distance_feet, miles, stationName)
         }
 
+        // Update phone in layout (hide if not available)
         phone.text = intent.getStringExtra("phone")
         if (phone.text == "") {
             phoneLabel.visibility = View.GONE
             phone.visibility = View.GONE
         }
 
+        // Update image in layout (load placeholder if Yelp doesn't provide)
         if (intent.getStringExtra("image_url") != "") {
             Picasso.with(this).load(intent.getStringExtra("image_url")).into(image)
         } else {
             image.setImageResource(R.drawable.placeholder)
         }
 
+        // If address clicked, launch Google Maps Walking directions
         address.setOnClickListener {
-            val mapsIntent = Intent(Intent.ACTION_VIEW, Uri.parse(intent.getStringExtra("address")))
+            val address = Uri.encode(intent.getStringExtra("address"))
+            // Navgiation with walking mode
+            val uri = Uri.parse("google.navigation:q=" + address + "&mode=w")
+            val mapsIntent = Intent(Intent.ACTION_VIEW, uri)
             mapsIntent.setPackage("com.google.android.apps.maps")
-            // TODO this is currently crashing App, need to set up Google Maps API
-//            if (mapsIntent.resolveActivity(getPackageManager()) != null) {
-//                startActivity(mapsIntent);
-//            }
+            if (mapsIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapsIntent)
+            } else {
+                // If Google Maps can't be accessed
+                Toast.makeText(this, R.string.noMaps, Toast.LENGTH_SHORT).show()
+            }
         }
 
         yelp_link.setOnClickListener {
@@ -85,7 +96,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id  = item?.itemId
+        val id = item?.itemId
         when (id) {
             R.id.favorite -> {
                 val landmarkname = intent.getStringExtra("landmarkName")
@@ -96,17 +107,14 @@ class LandmarkDetailActivity : AppCompatActivity() {
                 }
             }
             R.id.action_settings -> {
-                Toast.makeText(this@LandmarkDetailActivity,"share", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this@LandmarkDetailActivity, "share", Toast.LENGTH_SHORT).show();
             }
             else -> {
                 //
             }
         }
-
-
         return super.onOptionsItemSelected(item)
     }
-
 
 
 }

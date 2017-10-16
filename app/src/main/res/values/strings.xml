@@ -13,4 +13,5 @@
     <string name="noPermission">Location services not turned on.
         Go to Settings -> Security&amp;Location -> Location -> App-level permissions.</string>
     <string name="noYelp">Landmarks can\'t be loaded from Yelp. Check your internet connection.</string>
+    <string name="noMaps">Can\'t access Google Maps.</string>
 </resources>
