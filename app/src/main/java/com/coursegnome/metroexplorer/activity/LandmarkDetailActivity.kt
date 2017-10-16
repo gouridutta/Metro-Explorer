@@ -95,16 +95,27 @@ class LandmarkDetailActivity : AppCompatActivity() {
                     Toast.makeText(this@LandmarkDetailActivity, landmarkname + " is already saved as favorite", Toast.LENGTH_SHORT).show();
                 }
             }
-            R.id.action_settings -> {
-                Toast.makeText(this@LandmarkDetailActivity,"share", Toast.LENGTH_SHORT).show();
-            }
-            else -> {
-                //
-            }
-        }
-
-
-        return super.onOptionsItemSelected(item)
+//            R.id.action_settings -> {
+//               // Toast.makeText(this@LandmarkDetailActivity,"share", Toast.LENGTH_SHORT).show();
+//                val smsUri = Uri.parse("smsto: " )
+//                val intent = Intent(Intent.ACTION_SENDTO)
+//                intent.setData(smsUri)
+//                intent.setType("vnd.android-dir/mms-sms")
+//                intent.putExtra("sms_body", "to");
+//
+//                //if(intent.resolveActivity(packageManager? != null)) {
+//                    startActivity(intent);
+//                //}
+//
+//
+//            }
+//            else -> {
+//                //
+//            }
+//        }
+//
+//
+//        return super.onOptionsItemSelected(item)
     }
 
 
