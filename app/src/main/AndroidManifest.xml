@@ -23,8 +23,7 @@
         <activity android:name=".activity.LandmarksActivity" />
         <activity android:name=".activity.LandmarkDetailActivity" />
         <activity android:name=".activity.MetroStationsActivity" />
-        <activity android:name=".activity.FavoritesActivity">
-        </activity>
+        <activity android:name=".activity.FavoritesActivity"/>
     </application>
 
 </manifest>

@@ -22,7 +22,7 @@ class LocationDetector(val context: Context) {
 
     interface LocationListener {
         fun locationFound(location: Location)
-        fun locationNotFound(reason : String)
+        fun locationNotFound(reason: String)
     }
 
     fun detectLocation() {
@@ -32,7 +32,7 @@ class LocationDetector(val context: Context) {
         val permissionResult = ContextCompat.checkSelfPermission(context,
                 android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-        if(permissionResult == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+        if (permissionResult == android.content.pm.PackageManager.PERMISSION_GRANTED) {
             val timer = Timer()
 
             val locationCallback = object : LocationCallback() {
@@ -46,11 +46,10 @@ class LocationDetector(val context: Context) {
             timer.schedule(timerTask {
                 fusedLocationClient.removeLocationUpdates(locationCallback)
                 locationListener?.locationNotFound("Timeout")
-            }, 10*1000) //10 seconds
+            }, 10 * 1000) //10 seconds
 
-            fusedLocationClient.requestLocationUpdates(locationRequest,locationCallback, null)
-        }
-        else {
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
+        } else {
             locationListener?.locationNotFound("No permission given")
         }
     }

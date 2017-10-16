@@ -8,4 +8,10 @@
     <string name="distance">Distance</string>
     <string name="view_on">Afficher sur</string>
     <string name="distance_feet">%1$s miles de la gare %2$s</string>
+    <string name="noLocation">L\'emplacement ne peut pas être déterminé</string>
+    <string name="noPermission">Les services de localisation ne sont pas activés.
+        Allez dans Paramètres -> Sécurité -> Localisation ->
+        Autorisations d'accès aux applications.</string>
+    <string name="noYelp">Les points de repère ne peuvent pas être chargés sur Yelp. Vérifiez votre connection internet.</string>
+    <string name="noMaps">Impossible d\'accéder à Google Maps..</string>
 </resources>

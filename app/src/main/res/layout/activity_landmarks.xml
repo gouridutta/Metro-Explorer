@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.coursegnome.metroexplorer.activity.MetroStationsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/landmark_toolbar"
-        android:layout_height="?android:attr/actionBarSize"
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        />
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary" />
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:layout_marginTop="200dp"
         android:id="@+id/avi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:indicatorName="BallClipRotateIndicator"
+        android:layout_marginTop="200dp"
         app:indicatorColor="@color/colorPrimary"
-        />
+        app:indicatorName="BallClipRotateIndicator" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>
