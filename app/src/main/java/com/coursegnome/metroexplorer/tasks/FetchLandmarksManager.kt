@@ -15,12 +15,12 @@ class FetchLandmarksManager (val context : Context) {
 
     interface YelpSearchCompletedListener {
         fun landmarksLoaded(landmarks : ArrayList<Landmark>)
+        fun landmarksNotLoaded()
     }
 
     fun fetchLandmarks (lat :Float, lon: Float )  {
 
         YELP_URL = YELP_URL + "term=landmark&latitude=$lat&longitude=$lon&sort_by=distance&limit=10"
-        //val landmarks = ArrayList<Landmark>()
 
         Ion.with(context)
                 .load(YELP_URL)
@@ -28,7 +28,7 @@ class FetchLandmarksManager (val context : Context) {
                 .asJsonObject()
                 .setCallback({ error, result ->
                     error?.let {
-                        Log.e(TAG, it.message)
+                        yelpCompleted?.landmarksNotLoaded()
                     }
                     result?.let {
                         val results = it.getAsJsonArray("businesses")

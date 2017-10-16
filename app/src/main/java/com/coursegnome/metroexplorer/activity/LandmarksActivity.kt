@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
+import android.widget.Toast
 import com.coursegnome.metroexplorer.R
 import com.coursegnome.metroexplorer.model.Landmark
 import com.coursegnome.metroexplorer.model.StationData
@@ -102,8 +103,16 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchC
         landmarksManager.fetchLandmarks(lowestScore.lat,lowestScore.long)
     }
 
-    override fun locationNotFound(reason: LocationDetector.FailureReason) {
-        val and = 2
+    override fun locationNotFound(reason: String) {
+        val x = Toast.makeText(this, "placeholder", Toast.LENGTH_SHORT)
+        if (reason == "Timeout") {
+            x.setText(R.string.noLocation)
+        } else {
+            x.setText(R.string.noPermission)
+        }
+        x.show()
+        val intent = Intent (this@LandmarksActivity, MainActivity::class.java)
+        startActivity(intent)
     }
 
     override fun landmarksLoaded(landmarks: ArrayList<Landmark>) {
@@ -112,6 +121,17 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.YelpSearchC
         list.adapter = adapter
         adapter.setOnItemClickListener(onItemClickListener)
 
+    }
+
+    override fun landmarksNotLoaded() {
+        Toast.makeText(this, R.string.noYelp, Toast.LENGTH_SHORT).show()
+        if (intent.getStringExtra("parent") == "useLocation") {
+            val intent = Intent (this@LandmarksActivity, MainActivity::class.java)
+            startActivity(intent)
+        } else {
+            val intent = Intent (this@LandmarksActivity, MetroStationsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

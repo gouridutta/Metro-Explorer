@@ -9,4 +9,8 @@
     <string name="view_on">View on</string>
     <string name="distance_feet">%1$s miles from %2$s station</string>
     <string name="yelp"><u>Yelp</u></string>
+    <string name="noLocation">Location can\'t be determined.</string>
+    <string name="noPermission">Location services not turned on.
+        Go to Settings -> Security&amp;Location -> Location -> App-level permissions.</string>
+    <string name="noYelp">Landmarks can\'t be loaded from Yelp. Check your internet connection.</string>
 </resources>
