@@ -40,7 +40,7 @@ class PersistanceManager(context: Context) {
 
     fun getSavedFavoriteLandmarks() : ArrayList<Landmark> {
         //get string of landmarks in JSON format
-        var jsonData = preference.getString(Keys.PREFERENCE_KEY, null)
+        val jsonData = preference.getString(Keys.PREFERENCE_KEY, null)
 
         if(jsonData == null) return ArrayList<Landmark>()
         else {

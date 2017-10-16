@@ -28,7 +28,7 @@ class FetchMetroStationsManager(val context : Context) {
             newStationObject["LineCode4"]?.let { lines.add(newStationObject["LineCode4"].toString()) }
             val lat = newStationObject["Lat"].toString().toFloat()
             val lon = newStationObject["Lon"].toString().toFloat()
-            val newStation = StationData(name, lines, lat, lon)
+            val newStation = StationData(name, lines, lat, lon, 0.0)
             stationList.add(newStation)
         }
 

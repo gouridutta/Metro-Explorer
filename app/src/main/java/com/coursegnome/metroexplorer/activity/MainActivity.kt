@@ -16,12 +16,13 @@ class MainActivity : AppCompatActivity() {
 
     val REQUEST_CODE_ASK_PERMISSIONS = 123
 
-    fun getLocation(activityParam: Activity) {
-        val hasWriteContactsPermission = ContextCompat.checkSelfPermission(activityParam, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+    fun checkPermissions(activityParam: Activity) {
+        val hasWriteContactsPermission = ContextCompat.checkSelfPermission(activityParam, android.Manifest.permission.ACCESS_FINE_LOCATION)
         if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activityParam, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_CODE_ASK_PERMISSIONS)
+            ActivityCompat.requestPermissions(activityParam, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_ASK_PERMISSIONS)
         } else {
             val intent = Intent (this@MainActivity, LandmarksActivity::class.java)
+            intent.putExtra("parent", "useLocation")
             startActivity(intent)
         }
     }
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             REQUEST_CODE_ASK_PERMISSIONS -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission Granted
                 val intent = Intent (this@MainActivity, LandmarksActivity::class.java)
-                intent.putExtra("Parent", "Favorites")
+                intent.putExtra("parent", "useLocation")
                 startActivity(intent)
             } else {
                 // TODO tell user they can't use this feature without enabling location
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         setTitle("Metro Explorer");
 
         closest_station_button.setOnClickListener {
-            getLocation(this)
+            checkPermissions(this)
         }
 
         select_station_button.setOnClickListener {

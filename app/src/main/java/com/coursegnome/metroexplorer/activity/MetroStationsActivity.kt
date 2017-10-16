@@ -27,6 +27,7 @@ class MetroStationsActivity : AppCompatActivity(){
             val intent = Intent (this@MetroStationsActivity, LandmarksActivity::class.java)
             val lat = view.placeName.getTag(R.id.LAT_TAG) as Float
             val lon = view.placeName.getTag(R.id.LON_TAG) as Float
+            intent.putExtra("parent", "givenStation")
             intent.putExtra("stationName", view.placeName.text)
             intent.putExtra("lat", lat);
             intent.putExtra("lon", lon);
