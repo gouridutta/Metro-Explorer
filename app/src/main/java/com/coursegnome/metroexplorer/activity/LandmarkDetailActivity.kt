@@ -125,18 +125,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
                //
            }
        }
-
-
-       return super.onOptionsItemSelected(item)
-            R.id.action_settings -> {
-                Toast.makeText(this@LandmarkDetailActivity, "share", Toast.LENGTH_SHORT).show();
-            }
-            else -> {
-                //
-            }
-        }
-        return super.onOptionsItemSelected(item)
-master
+     return super.onOptionsItemSelected(item)
     }
 
 
